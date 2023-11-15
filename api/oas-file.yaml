@@ -14,7 +14,169 @@ paths:
       responses:
         '200':
           description: 'Ping exitoso'
-#components:
+  '/v1/persona':
+    get:
+      summary: Endpoint para obtener un listado de personas
+      description: 
+        Obtiene un arreglo de todas las personas guardadas en la base de
+        datos
+      operationId: list
+      x-router-controller: PersonaController
+      responses:
+        '200':
+          description: Solicitud exitosa
+          content:
+            application/json:
+              schema:
+                type: array
+                description:
+                  Arreglo con las personas retornadas
+                items:
+                  $ref: '#/components/schemas/Persona'
+        '500':
+          description: Error del servidor
+    patch:
+      summary: Endpoint para actualizar los datos de nueva persona
+      description:
+        Cambia la información de la persona cuyo ID se proporciona. Retorna
+        el número de registros afectados por la consulta.
+      operationId: update
+      x-router-controller: PersonaController
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description: Datos de la persona a guardar
+              $ref: '#/components/schemas/Persona'
+      responses:
+        '200':
+          description: Persona creada correctamente
+          content:
+            application/json:
+              schema:
+                type: number
+                description: ID de la persona recién creada
+        '400':
+          description: Solicitud errónea
+        '500':
+          description: Error del servidor
+    post:
+      summary: Endpoint para guardar una nueva persona
+      description:
+        Guarda el registro de una nueva persona en la base de datos. Regresa
+        el ID de la nueva persona.
+      operationId: create
+      x-router-controller: PersonaController
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description: Datos de la persona a guardar
+              $ref: '#/components/schemas/Persona'
+      responses:
+        '200':
+          description: Persona creada correctamente
+          content:
+            application/json:
+              schema:
+                type: number
+                description: ID de la persona recién creada
+        '500':
+          description: Error del servidor
+  '/v1/persona/{id}':
+    get:
+      summary: Endpoint para obtener la información de una persona
+      description: Obtiene la información de la Persona cuyo ID se proporciona
+      operationId: fetch
+      x-router-controller: PersonaController
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Solicitud exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Persona'
+        '400':
+          description: Solicitud errónea
+        '500':
+          description: Error del servidor
+    delete:
+      summary: Endpoint para eliminar el registro de una persona
+      description: Elimina la información de la Persona cuyo ID se proporciona.
+      operationId: del
+      x-router-controller: PersonaController
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Solicitud exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Persona'
+        '400':
+          description: Solicitud errónea
+        '500':
+          description: Error del servidor
+components:
+  schemas:
+    Persona:
+      type: object
+      required:
+        - nombre
+        - apellidoPaterno
+        - apellidoMaterno
+        - sexo
+        - estado
+      properties:
+        nombre:
+          type: string
+          description: Nombre de pila de la persona
+          maxLength: 128
+        apellidoPaterno:
+          type: string
+          description: Primer apellido de la persona
+          maxLength: 128
+        apellidoMaterno:
+          type: string
+          description: Segundo apellido de la persona
+          maxLength: 128
+        estado:
+          type: number
+          minimum: 1
+          maximum: 32
+          description: Código del estado de nacimiento de la persona
+        nombreEstado:
+          type: string
+          maxLength: 64
+          description: Nombre del estado de nacimiento de la persona. (Opcional)
+        sexo:
+          type: string
+          enum: ['h', 'm', 'o']
+          description: >
+            Código del sexo de la persona
+              h: Hombre
+              m: Mujer
+              o: Otro
+        sexo_otro:
+          type: string
+          maxLength: 64
+          description: 
+            Sexo opcional de la persona, en caso que quiera especificarlo. (Opcional)
+        
+
 #  securitySchemes:
 #    ApiKeyAuth:
 #      type: apiKey

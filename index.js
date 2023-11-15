@@ -12,8 +12,8 @@ const appPort = process.env.APP_PORT
 const app = express()
 
 app.use(cors())
-//app.use(bodyParser.json())
-//app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
 
 oasTools.initialize(app, oasConfig).then(() => {
   http.createServer(app).listen(appPort, () => {
