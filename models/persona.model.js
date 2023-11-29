@@ -3,7 +3,6 @@ import knex from '../database/knex.js'
 const tableName = 'Persona'
 
 class PersonaModel {
-
   delete (id) {
     return knex(tableName)
       .where('idPersona', id)
@@ -29,7 +28,7 @@ class PersonaModel {
   }
 
   insert (data) {
-    let persona = {
+    const persona = {
       nombre: data.nombre,
       apellidoPaterno: data.apellidoPaterno,
       apellidoMaterno: data.apellidoMaterno,
@@ -44,7 +43,7 @@ class PersonaModel {
         return ids[0]
       })
   }
-  
+
   list () {
     return knex(`${tableName} AS p`)
       .join('Estado AS e', 'p.estado', 'e.idEstado')
@@ -60,7 +59,7 @@ class PersonaModel {
   }
 
   update (id, data) {
-    let persona = {
+    const persona = {
       nombre: data.nombre,
       apellidoPaterno: data.apellidoPaterno,
       apellidoMaterno: data.apellidoMaterno,
@@ -71,10 +70,8 @@ class PersonaModel {
 
     return knex(tableName)
       .where('idPersona', id)
-      .update(data)
+      .update(persona)
   }
-
-
 }
 
 export default PersonaModel

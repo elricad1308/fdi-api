@@ -3,10 +3,9 @@ import PersonaModel from '../../models/persona.model.js'
 const modelo = new PersonaModel()
 
 class PersonaController {
-
   async create (req, res) {
     try {
-      let data = req.body
+      const data = req.body
 
       const id = await modelo.insert(data)
 
@@ -21,7 +20,7 @@ class PersonaController {
   async del (_, res) {
     try {
       const id = res.locals.oas.params.id
-      
+
       if (id) {
         const data = await modelo.delete(id)
 
@@ -45,7 +44,7 @@ class PersonaController {
   async fetch (_, res) {
     try {
       const id = res.locals.oas.params.id
-      
+
       if (id) {
         const data = await modelo.fetch(id)
 

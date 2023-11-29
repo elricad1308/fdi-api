@@ -1,5 +1,4 @@
 class ApiController {
-
   ping (req, res) {
     res.status(200)
       .type('text/plain')

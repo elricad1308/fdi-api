@@ -34,7 +34,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/Persona'
         '500':
-          description: Error del servidor
+          description: Error del servidor          
     patch:
       summary: Endpoint para actualizar los datos de nueva persona
       description:
@@ -130,6 +130,72 @@ paths:
           description: Solicitud errónea
         '500':
           description: Error del servidor
+  '/v1/web-design/final-test':
+    post:
+      summary: Endpoint para el ejercicio del examen final
+      description: 
+        Devuelve un documento JSON con información necesaria para completar
+        el ejercicio práctico del examen ordinario.
+      operationId: finalTest
+      x-router-controller: WebDesignController
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description: Datos solicitados por el ejercicio
+              required:
+                - nombre
+                - apellido
+                - matricula
+              properties:
+                nombre:
+                  type: string
+                  description: Nombre del alumno
+                  maxLength: 128
+                apellido:
+                  type: string
+                  description: Apellido del alumno
+                  maxLength: 128
+                matricula:
+                  type: number
+                  description: Matrícula del alumno
+                  minimum: 1
+      responses:
+        '200':
+          description: 'Solicitud exitosa'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: number
+                    description: Código de la operación
+                  status:
+                    type: string
+                    description: Resultado de la operación
+                  message:
+                    type: string
+                    description: Mensaje supersecreto
+        '400':
+          description: 'Solicitud errónea'
+          content:
+            text/plain:
+              schema:
+                type: string
+              examples:
+                example-400-response:
+                  value: "El campo NOMBRE es requerido"
+        '500':
+          description: 'Error interno del servidor'
+          content:
+            text/plain:
+              schema:
+                type: string
+              examples:
+                example-400-response:
+                  value: "Intenta de nuevo más tarde"
 components:
   schemas:
     Persona:
