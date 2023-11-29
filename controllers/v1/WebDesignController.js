@@ -3,6 +3,12 @@ import WDFinalTestModel from '../../models/wd_finaltest.model.js'
 const modelo = new WDFinalTestModel()
 
 class WebDesignController {
+  finalTestGet (_, res) {
+    res.status(405)
+      .type('text/plain')
+      .send('Debes hacer la solicitud por POST!')
+  }
+
   async finalTest (req, res) {
     try {
       const data = req.body
@@ -38,6 +44,6 @@ class WebDesignController {
 
 const controller = new WebDesignController()
 
-export const { finalTest } = controller
+export const { finalTest, finalTestGet } = controller
 
 export default WebDesignController

@@ -131,6 +131,23 @@ paths:
         '500':
           description: Error del servidor
   '/v1/web-design/final-test':
+    get:
+      summary: Endpoint para el ejercicio del examen final
+      description:
+        Devuelve un mensaje erróneo, pues no se utilizó el método HTTP correcto
+        para hacer la solicitud al servidor
+      operationId: finalTestGet
+      x-router-controller: WebDesignController
+      responses:
+        '405':
+          description: 'Método Equivocado'
+          content:
+            text/plain:
+              schema:
+                type: string
+              examples:
+                example-400-response:
+                  value: "Tienes que hacer la solicitud por POST!"
     post:
       summary: Endpoint para el ejercicio del examen final
       description: 
