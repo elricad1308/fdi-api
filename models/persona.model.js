@@ -48,6 +48,7 @@ class PersonaModel {
     return knex(`${tableName} AS p`)
       .join('Estado AS e', 'p.estado', 'e.idEstado')
       .select([
+	{ id: 'p.idPersona' },
         { nombre: 'p.nombre' },
         { apellidoPaterno: 'p.apellidoPaterno' },
         { apellidoMaterno: 'p.apellidoMaterno' },
