@@ -14,6 +14,63 @@ paths:
       responses:
         '200':
           description: 'Ping exitoso'
+  '/v1/chat':
+    post:
+      summary: Endpoint para enviar prompts al modelo Gemini de Google
+      description:
+        Envía un prompt de texto al modelo de IA Generativa de Google
+        Gemini para obtener una respuesta
+      operationId: chat
+      x-router-controller: ApiController
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description: Objeto con el prompt a utilizar
+              required:
+                - prompt
+              properties:
+                prompt:
+                  type: string
+                  description: Prompt a enviar al modelo
+      responses:
+        '200':
+          description: Solicitud exitosa
+          content:
+            application/json:
+              schema:
+                type: object
+                description:
+                  Objeto con la respuesta generada por el modelo
+                properties:
+                  status:
+                    type: number
+                    description: Código de estado del modelo
+                  text:
+                    type: string
+                    description: Respuesta generada por el modelo
+                  error:
+                    type: string
+                    description: Error encontrado por el modelo, en caso que ocurra alguno
+        '400':
+          description: 'Solicitud errónea'
+          content:
+            text/plain:
+              schema:
+                type: string
+              examples:
+                example-400-response:
+                  value: "El campo PROMPT es requerido"
+        '500':
+          description: 'Error interno del servidor'
+          content:
+            text/plain:
+              schema:
+                type: string
+              examples:
+                example-500-response:
+                  value: "Intenta de nuevo más tarde"       
   '/v1/persona':
     get:
       summary: Endpoint para obtener un listado de personas
