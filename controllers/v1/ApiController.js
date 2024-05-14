@@ -16,10 +16,13 @@ class ApiController {
           .send('El atributo PROMPT es requerido')
       }
 
+      let prompt = data.prompt.replace(/["\n]/g, '')
+
       const python = spawn(
         process.env.PYTHON_PATH,
         [
-          process.cwd() + path.sep + 'gemini.py'
+          process.cwd() + path.sep + 'gemini.py',
+          `"${prompt}"`
         ]
       )
 
