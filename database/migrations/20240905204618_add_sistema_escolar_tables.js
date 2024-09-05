@@ -62,6 +62,8 @@ export async function up (knex) {
       table.date('fecha')      
       table.timestamps(false, true)
 
+      table.unique(['id_inscripcion', 'fecha']);
+
       table.foreign('id_inscripcion').references('inscripciones.id_inscripcion')
     })
 
