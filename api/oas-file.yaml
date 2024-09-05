@@ -71,6 +71,241 @@ paths:
               examples:
                 example-500-response:
                   value: "Intenta de nuevo más tarde"       
+  '/v1/escuela/asignacion':
+    get:
+      summary: Obtiene un listado de asignaciones de materias a profesores
+      description:
+        Obtiene un arreglo de todas las asignaciones de materias a profesores
+        registradas en el sistema escolar usado durante el curso.
+      operationId: listAsignacion
+      x-router-controller: EscuelaController
+      responses:
+        '200':
+          description: Solicitud exitosa
+          content:
+            application/json:
+              schema:
+                type: array
+                description:
+                  Arreglo con las asignaciones retornadas
+                items:
+                  $ref: '#/components/schemas/Asignacion'
+        '500':
+          description: Error del servidor
+    post:
+      summary: Registra una asignación de materia a un profesor en el sistema escolar
+      description:
+        Registra una asignación de materia a persona en el sistema escolar usado
+        durante el curso. Retorna el ID de la asignación recién creada.
+      operationId: createAsignacion
+      x-router-controller: EscuelaController
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description: Datos de la asignación a guardar
+              $ref: '#/components/schemas/Asignacion'
+      responses:
+        '200':
+          description: Asignación creada correctamente
+          content:
+            application/json:
+              schema:
+                type: number
+                description: ID de la asignación recién creada
+        '400':
+          description: Solicitud errónea
+        '500':
+          description: Error del servidor
+  '/v1/escuela/asistencia':
+    get:
+      summary: Obtiene un listado de asistencias de alumnos a materias
+      description:
+        Obtiene un arreglo de todas las asistencias de alumnos a materias
+        registradas en el sistema escolar usado durante el curso.
+      operationId: listAsistencia
+      x-router-controller: EscuelaController
+      responses:
+        '200':
+          description: Solicitud exitosa
+          content:
+            application/json:
+              schema:
+                type: array
+                description:
+                  Arreglo con las asistencias retornadas
+                items:
+                  $ref: '#/components/schemas/Asistencia'
+        '500':
+          description: Error del servidor
+    post:
+      summary: Registra una asistencia de un alumno a una materia
+      description:
+        Registra una asistencia de un alumno a una materia en el sistema escolar
+        usado durante el curso. Retorna el ID de la asistencia recién creada.
+      operationId: createAsistencia
+      x-router-controller: EscuelaController
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description: Datos de la asistencia a guardar
+              $ref: '#/components/schemas/Asistencia'
+      responses:
+        '200':
+          description: Asistencia creada correctamente
+          content:
+            application/json:
+              schema:
+                type: number
+                description: ID de la asistencia recién creada
+        '400':
+          description: Solicitud errónea
+        '500':
+          description: Error del servidor
+  '/v1/escuela/inscripcion':
+    get:
+      summary: Obtiene un listado de inscripciones de alumnos a materias
+      description:
+        Obtiene un arreglo de todas las inscripciones de alumnos a materias
+        registradas en el sistema escolar usado durante el curso.
+      operationId: listInscripcion
+      x-router-controller: EscuelaController
+      responses:
+        '200':
+          description: Solicitud exitosa
+          content:
+            application/json:
+              schema:
+                type: array
+                description:
+                  Arreglo con las inscripciones retornadas
+                items:
+                  $ref: '#/components/schemas/Inscripcion'
+        '500':
+          description: Error del servidor
+    post:
+      summary: Registra una inscripción de un alumno a una materia
+      description:
+        Registra una inscripción de un alumno a una materia en el sistema escolar
+        usado durante el curso. Retorna el ID de la inscripción recién creada.
+      operationId: createInscripcion
+      x-router-controller: EscuelaController
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description: Datos de la inscripción a guardar
+              $ref: '#/components/schemas/Inscripcion'
+      responses:
+        '200':
+          description: Inscripción creada correctamente
+          content:
+            application/json:
+              schema:
+                type: number
+                description: ID de la inscripción recién creada
+        '400':
+          description: Solicitud errónea
+        '500':
+          description: Error del servidor
+  '/v1/escuela/persona':
+    get:
+      summary: Obtiene un listado de personas registradas en el sistema escolar
+      description:
+        Obtiene un arreglo de todas las personas registradas en el sistema
+        escolar usado durante el curso.
+      operationId: listPersonaEscuela
+      x-router-controller: EscuelaController
+      responses:
+        '200':
+          description: Solicitud exitosa
+          content:
+            application/json:
+              schema:
+                type: array
+                description:
+                  Arreglo con las personas retornadas
+                items:
+                  $ref: '#/components/schemas/PersonaEscuela'
+        '500':
+          description: Error del servidor
+    post:
+      summary: Registra una persona en el sistema escolar
+      description:
+        Registra una persona en el sistema escolar usado durante el curso.
+        Retorna el ID de la persona recién creada.
+      operationId: createPersona
+      x-router-controller: EscuelaController
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description: Datos de la persona a guardar
+              $ref: '#/components/schemas/PersonaEscuela'
+      responses:
+        '200':
+          description: Persona creada correctamente
+          content:
+            application/json:
+              schema:
+                type: number
+                description: ID de la persona recién creada
+        '400':
+          description: Solicitud errónea
+        '500':
+          description: Error del servidor
+  '/v1/escuela/materia':
+    get:
+      summary: Obtiene un listado de materias registradas en el sistema escolar
+      description:
+        Obtiene un arreglo de todas las materias registradas en el sistema
+        escolar usado durante el curso.
+      operationId: listMateria
+      x-router-controller: EscuelaController
+      responses:
+        '200':
+          description: Solicitud exitosa
+          content:
+            application/json:
+              schema:
+                type: array
+                description:
+                  Arreglo con las materias retornadas
+                items:
+                  $ref: '#/components/schemas/Materia'
+        '500':
+          description: Error del servidor
+    post:
+      summary: Registra una materia en el sistema escolar
+      description:
+        Registra una materia en el sistema escolar usado durante el curso.
+        Retorna el ID de la materia recién creada.
+      operationId: createMateria
+      x-router-controller: EscuelaController
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description: Datos de la materia a guardar
+              $ref: '#/components/schemas/Materia'
+      responses:
+        '200':
+          description: Materia creada correctamente
+          content:
+            application/json:
+              schema:
+                type: number
+                description: ID de la materia recién creada
+        '400':
+          description: Solicitud errónea
+        '500':
+          description: Error del servidor
   '/v1/persona':
     get:
       summary: Endpoint para obtener un listado de personas
@@ -272,6 +507,98 @@ paths:
                   value: "Intenta de nuevo más tarde"
 components:
   schemas:
+    Asignacion:
+      type: object
+      required:
+        - id_materia
+        - id_profesor
+        - periodo
+      properties:
+        id:
+          type: number
+          description: ID de la asignación
+        id_materia:
+          type: number
+          description: ID de la materia asignada
+        id_profesor:
+          type: number
+          description: ID del profesor asignado
+        periodo:
+          type: string
+          description: Clave del semestre en el que se imparte la materia
+          maxLength: 20
+    Asistencia:
+      type: object
+      required:
+        - id_inscripcion
+        - fecha
+      properties:
+        id:
+          type: number
+          description: ID de la asistencia
+        id_inscripcion:
+          type: number
+          description: ID de la inscripción del estudiante
+        id_estudiante:
+          type: number
+          description: ID del estudiante que asistió
+        id_materia:
+          type: number
+          description: ID de la materia a la que asistió
+        estudiante:
+          type: string
+          description: Nombre completo del estudiante
+        materia:
+          type: string
+          description: Nombre de la materia a la que asistió
+        fecha:
+          type: string
+          format: date
+          description: Fecha de la asistencia
+    Inscripcion:
+      type: object
+      required:
+        - id_estudiante
+        - id_materia
+        - calificacion
+      properties:
+        id:
+          type: number
+          description: ID de la inscripción
+        id_estudiante:
+          type: number
+          description: ID del estudiante inscrito
+        id_materia:
+          type: number
+          description: ID de la materia inscrita
+        calificacion:
+          type: number
+          description: Calificación obtenida por el estudiante (base 10)
+          minimum: 0
+          maximum: 10
+    Materia:
+      type: object
+      required:
+        - descripcion
+        - semestre
+      properties:
+        id:
+          type: number
+          description: ID de la materia
+        descripcion:
+          type: string
+          description: Nombre de la materia
+          maxLength: 128
+        semestre:
+          type: number
+          description: Semestre en el que se imparte la materia
+          minimum: 1
+          maximum: 12
+        creditos:
+          type: number
+          description: Créditos de la materia
+          minimum: 1
+          maximum: 10
     Persona:
       type: object
       required:
@@ -315,7 +642,45 @@ components:
           maxLength: 64
           description: 
             Sexo opcional de la persona, en caso que quiera especificarlo. (Opcional)
-        
+    PersonaEscuela:
+      type: object
+      required:
+        - nombre
+        - apellido        
+      properties:
+        id:
+          type: number
+          description: ID de la persona
+        nombre:
+          type: string
+          description: Nombre de la persona
+          maxLength: 64
+        apellido:
+          type: string
+          description: Apellido de la persona
+          maxLength: 64
+        sexo:
+          type: string
+          enum: ['h', 'm', 'o']
+          description: >
+            Código del sexo de la persona
+              h: Hombre
+              m: Mujer
+              o: Otro
+          maxLength: 1
+        fh_nac:
+          type: string
+          format: date
+          description: Fecha de nacimiento de la persona
+        id_rol:
+          type: number
+          enum: [1, 2, 3, 4]
+          description: >
+            Código del rol de la persona
+              1: Alumno
+              2: Profesor
+              3: Administrativo
+              4: Otro
 
 #  securitySchemes:
 #    ApiKeyAuth:
