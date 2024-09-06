@@ -35,12 +35,14 @@ class PersonaEscuelaModel {
       .orderBy('p.id_persona')
       .then(rows => {
         return rows.map(row => {
+          const fecha = row.fh_nac ?? new Date()
+
           return {
             id: row.id,
             nombre: row.nombre,
             apellido: row.apellido,
             sexo: row.sexo,
-            fh_nac: row.fh_nac.toISOString().split('T')[0],
+            fh_nac: fecha.split('T')[0],
             rol: row.rol
           }
         })

@@ -33,6 +33,9 @@ class AsistenciaModel {
       .orderBy('i.id_estudiante', 'i.id_materia', 'a.fecha')
       .then(asistencias => {
         return asistencias.map(asistencia => {
+
+          const fecha = asistencia.fecha ?? new Date()
+
           return {
             id: asistencia.id,
             id_inscripcion: asistencia.id_inscripcion,
@@ -40,7 +43,7 @@ class AsistenciaModel {
             estudiante: asistencia.estudiante,
             id_materia: asistencia.id_materia,
             materia: asistencia.materia,
-            fecha: asistencia.fecha.toISOString().split('T')[0]
+            fecha: fecha.split('T')[0] 
           }
         })
       })
