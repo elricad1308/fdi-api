@@ -43,7 +43,7 @@ class AsistenciaModel {
             estudiante: asistencia.estudiante,
             id_materia: asistencia.id_materia,
             materia: asistencia.materia,
-            fecha: fecha.split('T')[0] 
+            fecha: fecha.toISOString().split('T')[0] 
           }
         })
       })
