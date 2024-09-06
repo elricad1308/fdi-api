@@ -42,7 +42,7 @@ class PersonaEscuelaModel {
             nombre: row.nombre,
             apellido: row.apellido,
             sexo: row.sexo,
-            fh_nac: fecha.split('T')[0],
+            fh_nac: fecha.toISOString().split('T')[0],
             rol: row.rol
           }
         })
