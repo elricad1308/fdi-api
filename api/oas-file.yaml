@@ -259,6 +259,82 @@ paths:
           description: Solicitud errónea
         '500':
           description: Error del servidor
+    delete: 
+      summary: Elimina una persona del sistema escolar
+      description:
+        Elimina la persona cuyo ID se proporciona del sistema escolar usado
+        durante el curso.
+      operationId: deletePersona
+      x-router-controller: EscuelaController
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description: Datos de la persona a eliminar
+              $ref: '#/components/schemas/PersonaEscuelaOpcional'
+      responses:
+        '200':
+          description: Persona eliminada correctamente
+          content:
+            application/json:
+              schema:
+                type: number
+                description: Número de filas eliminadas
+        '400':
+          description: Solicitud errónea
+        '500':
+          description: Error del servidor
+    patch:
+      summary: Modifica los datos de una persona en el sistema escolar
+      description:
+        Modifica los datos de la persona en el sistema escolar usado durante el
+        curso cuyo ID se proporciona.
+      operationId: updatePersona
+      x-router-controller: EscuelaController
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description: Datos de la persona a actualizar
+              $ref: '#/components/schemas/PersonaEscuelaOpcional'
+      responses:
+        '200':
+          description: Persona actualizada correctamente
+          content:
+            application/json:
+              schema:
+                type: number
+                description: Número de filas modificadas
+        '400':
+          description: Solicitud errónea
+        '500':
+          description: Error del servidor
+  '/v1/escuela/persona/{id}':
+    get:
+      summary: Obtiene los datos de una persona en el sistema escolar
+      description:
+        Obtiene la información de la persona cuyo ID se proporciona
+      operationId: fetchPersona
+      x-router-controller: EscuelaController
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Solicitud exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PersonaEscuelaFull'
+        '400':
+          description: Solicitud errónea
+        '500':
+          description: Error del servidor
   '/v1/escuela/materia':
     get:
       summary: Obtiene un listado de materias registradas en el sistema escolar
@@ -306,205 +382,205 @@ paths:
           description: Solicitud errónea
         '500':
           description: Error del servidor
-  '/v1/persona':
-    get:
-      summary: Endpoint para obtener un listado de personas
-      description: 
-        Obtiene un arreglo de todas las personas guardadas en la base de
-        datos
-      operationId: list
-      x-router-controller: PersonaController
-      responses:
-        '200':
-          description: Solicitud exitosa
-          content:
-            application/json:
-              schema:
-                type: array
-                description:
-                  Arreglo con las personas retornadas
-                items:
-                  $ref: '#/components/schemas/Persona'
-        '500':
-          description: Error del servidor          
-    patch:
-      summary: Endpoint para actualizar los datos de nueva persona
-      description:
-        Cambia la información de la persona cuyo ID se proporciona. Retorna
-        el número de registros afectados por la consulta.
-      operationId: update
-      x-router-controller: PersonaController
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              description: Datos de la persona a guardar
-              $ref: '#/components/schemas/Persona'
-      responses:
-        '200':
-          description: Persona creada correctamente
-          content:
-            application/json:
-              schema:
-                type: number
-                description: ID de la persona recién creada
-        '400':
-          description: Solicitud errónea
-        '500':
-          description: Error del servidor
-    post:
-      summary: Endpoint para guardar una nueva persona
-      description:
-        Guarda el registro de una nueva persona en la base de datos. Regresa
-        el ID de la nueva persona.
-      operationId: create
-      x-router-controller: PersonaController
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              description: Datos de la persona a guardar
-              $ref: '#/components/schemas/Persona'
-      responses:
-        '200':
-          description: Persona creada correctamente
-          content:
-            application/json:
-              schema:
-                type: number
-                description: ID de la persona recién creada
-        '500':
-          description: Error del servidor
-  '/v1/persona/{id}':
-    get:
-      summary: Endpoint para obtener la información de una persona
-      description: Obtiene la información de la Persona cuyo ID se proporciona
-      operationId: fetch
-      x-router-controller: PersonaController
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: integer
-      responses:
-        '200':
-          description: Solicitud exitosa
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Persona'
-        '400':
-          description: Solicitud errónea
-        '500':
-          description: Error del servidor
-    delete:
-      summary: Endpoint para eliminar el registro de una persona
-      description: Elimina la información de la Persona cuyo ID se proporciona.
-      operationId: del
-      x-router-controller: PersonaController
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: integer
-      responses:
-        '200':
-          description: Solicitud exitosa
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Persona'
-        '400':
-          description: Solicitud errónea
-        '500':
-          description: Error del servidor
-  '/v1/web-design/final-test':
-    get:
-      summary: Endpoint para el ejercicio del examen final
-      description:
-        Devuelve un mensaje erróneo, pues no se utilizó el método HTTP correcto
-        para hacer la solicitud al servidor
-      operationId: finalTestGet
-      x-router-controller: WebDesignController
-      responses:
-        '405':
-          description: 'Método Equivocado'
-          content:
-            text/plain:
-              schema:
-                type: string
-              examples:
-                example-400-response:
-                  value: "Tienes que hacer la solicitud por POST!"
-    post:
-      summary: Endpoint para el ejercicio del examen final
-      description: 
-        Devuelve un documento JSON con información necesaria para completar
-        el ejercicio práctico del examen ordinario.
-      operationId: finalTest
-      x-router-controller: WebDesignController
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              description: Datos solicitados por el ejercicio
-              required:
-                - nombre
-                - apellido
-                - matricula
-              properties:
-                nombre:
-                  type: string
-                  description: Nombre del alumno
-                  maxLength: 128
-                apellido:
-                  type: string
-                  description: Apellido del alumno
-                  maxLength: 128
-                matricula:
-                  type: number
-                  description: Matrícula del alumno
-                  minimum: 1
-      responses:
-        '200':
-          description: 'Solicitud exitosa'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  code:
-                    type: number
-                    description: Código de la operación
-                  status:
-                    type: string
-                    description: Resultado de la operación
-                  message:
-                    type: string
-                    description: Mensaje supersecreto
-        '400':
-          description: 'Solicitud errónea'
-          content:
-            text/plain:
-              schema:
-                type: string
-              examples:
-                example-400-response:
-                  value: "El campo NOMBRE es requerido"
-        '500':
-          description: 'Error interno del servidor'
-          content:
-            text/plain:
-              schema:
-                type: string
-              examples:
-                example-400-response:
-                  value: "Intenta de nuevo más tarde"
+  #'/v1/persona':
+  #  get:
+  #    summary: Endpoint para obtener un listado de personas
+  #    description: 
+  #      Obtiene un arreglo de todas las personas guardadas en la base de
+  #      datos
+  #    operationId: list
+  #    x-router-controller: PersonaController
+  #    responses:
+  #      '200':
+  #        description: Solicitud exitosa
+  #        content:
+  #          application/json:
+  #           schema:
+  #              type: array
+  #              description:
+  #                Arreglo con las personas retornadas
+  #              items:
+  #                $ref: '#/components/schemas/Persona'
+  #      '500':
+  #        description: Error del servidor          
+  #  patch:
+  #    summary: Endpoint para actualizar los datos de nueva persona
+  #    description:
+  #      Cambia la información de la persona cuyo ID se proporciona. Retorna
+  #      el número de registros afectados por la consulta.
+  #    operationId: update
+  #    x-router-controller: PersonaController
+  #    requestBody:
+  #      content:
+  #        application/json:
+  #          schema:
+  #            type: object
+  #            description: Datos de la persona a guardar
+  #            $ref: '#/components/schemas/Persona'
+  #    responses:
+  #      '200':
+  #        description: Persona creada correctamente
+  #        content:
+  #          application/json:
+  #            schema:
+  #              type: number
+  #              description: ID de la persona recién creada
+  #      '400':
+  #        description: Solicitud errónea
+  #      '500':
+  #        description: Error del servidor
+  #  post:
+  #    summary: Endpoint para guardar una nueva persona
+  #    description:
+  #      Guarda el registro de una nueva persona en la base de datos. Regresa
+  #      el ID de la nueva persona.
+  #    operationId: create
+  #    x-router-controller: PersonaController
+  #    requestBody:
+  #      content:
+  #        application/json:
+  #          schema:
+  #            type: object
+  #            description: Datos de la persona a guardar
+  #            $ref: '#/components/schemas/Persona'
+  #    responses:
+  #      '200':
+  #        description: Persona creada correctamente
+  #        content:
+  #          application/json:
+  #            schema:
+  #              type: number
+  #              description: ID de la persona recién creada
+  #      '500':
+  #       description: Error del servidor
+  #'/v1/persona/{id}':
+  #  get:
+  #    summary: Endpoint para obtener la información de una persona
+  #    description: Obtiene la información de la Persona cuyo ID se proporciona
+  #    operationId: fetch
+  #    x-router-controller: PersonaController
+  #    parameters:
+  #      - name: id
+  #        in: path
+  #        required: true
+  #        schema:
+  #          type: integer
+  #    responses:
+  #      '200':
+  #        description: Solicitud exitosa
+  #        content:
+  #          application/json:
+  #            schema:
+  #              $ref: '#/components/schemas/Persona'
+  #      '400':
+  #        description: Solicitud errónea
+  #      '500':
+  #        description: Error del servidor
+  #  delete:
+  #    summary: Endpoint para eliminar el registro de una persona
+  #    description: Elimina la información de la Persona cuyo ID se proporciona.
+  #    operationId: del
+  #    x-router-controller: PersonaController
+  #    parameters:
+  #      - name: id
+  #        in: path
+  #        required: true
+  #        schema:
+  #          type: integer
+  #    responses:
+  #      '200':
+  #        description: Solicitud exitosa
+  #        content:
+  #          application/json:
+  #            schema:
+  #              $ref: '#/components/schemas/Persona'
+  #      '400':
+  #        description: Solicitud errónea
+  #      '500':
+  #        description: Error del servidor
+  #'/v1/web-design/final-test':
+  #  get:
+  #    summary: Endpoint para el ejercicio del examen final
+  #    description:
+  #      Devuelve un mensaje erróneo, pues no se utilizó el método HTTP correcto
+  #      para hacer la solicitud al servidor
+  #    operationId: finalTestGet
+  #    x-router-controller: WebDesignController
+  #    responses:
+  #      '405':
+  #        description: 'Método Equivocado'
+  #        content:
+  #          text/plain:
+  #            schema:
+  #              type: string
+  #            examples:
+  #              example-400-response:
+  #                value: "Tienes que hacer la solicitud por POST!"
+  # post:
+  #    summary: Endpoint para el ejercicio del examen final
+  #    description: 
+  #      Devuelve un documento JSON con información necesaria para completar
+  #      el ejercicio práctico del examen ordinario.
+  #    operationId: finalTest
+  #    x-router-controller: WebDesignController
+  #    requestBody:
+  #      content:
+  #        application/json:
+  #          schema:
+  #            type: object
+  #            description: Datos solicitados por el ejercicio
+  #            required:
+  #              - nombre
+  #              - apellido
+  #              - matricula
+  #            properties:
+  #              nombre:
+  #                type: string
+  #                description: Nombre del alumno
+  #                maxLength: 128
+  #              apellido:
+  #                type: string
+  #                description: Apellido del alumno
+  #                maxLength: 128
+  #              matricula:
+  #                type: number
+  #                description: Matrícula del alumno
+  #                minimum: 1
+  #    responses:
+  #      '200':
+  #        description: 'Solicitud exitosa'
+  #        content:
+  #          application/json:
+  #            schema:
+  #              type: object
+  #             properties:
+  #                code:
+  #                  type: number
+  #                  description: Código de la operación
+  #                status:
+  #                  type: string
+  #                  description: Resultado de la operación
+  #                message:
+  #                  type: string
+  #                  description: Mensaje supersecreto
+  #      '400':
+  #        description: 'Solicitud errónea'
+  #        content:
+  #          text/plain:
+  #            schema:
+  #              type: string
+  #            examples:
+  #             example-400-response:
+  #                value: "El campo NOMBRE es requerido"
+  #      '500':
+  #        description: 'Error interno del servidor'
+  #        content:
+  #          text/plain:
+  #            schema:
+  #              type: string
+  #            examples:
+  #              example-400-response:
+  #                value: "Intenta de nuevo más tarde"
 components:
   schemas:
     Asignacion:
@@ -599,36 +675,69 @@ components:
           description: Créditos de la materia
           minimum: 1
           maximum: 10
-    Persona:
+    #Persona:
+    #  type: object
+    #  required:
+    #    - nombre
+    #    - apellidoPaterno
+    #    - apellidoMaterno
+    #    - sexo
+    #    - estado
+    #  properties:
+    #    nombre:
+    #      type: string
+    #      description: Nombre de pila de la persona
+    #      maxLength: 128
+    #    apellidoPaterno:
+    #      type: string
+    #      description: Primer apellido de la persona
+    #      maxLength: 128
+    #    apellidoMaterno:
+    #      type: string
+    #      description: Segundo apellido de la persona
+    #      maxLength: 128
+    #    estado:
+    #      type: number
+    #      minimum: 1
+    #      maximum: 32
+    #     description: Código del estado de nacimiento de la persona
+    #    nombreEstado:
+    #      type: string
+    #      maxLength: 64
+    #      description: Nombre del estado de nacimiento de la persona. (Opcional)
+    #    sexo:
+    #      type: string
+    #      enum: ['h', 'm', 'o']
+    #      description: >
+    #        Código del sexo de la persona
+    #          h: Hombre
+    #          m: Mujer
+    #          o: Otro
+    #    sexo_otro:
+    #      type: string
+    #      maxLength: 64
+    #      description: 
+    #        Sexo opcional de la persona, en caso que quiera especificarlo. (Opcional)
+    PersonaEscuela:
       type: object
       required:
         - nombre
-        - apellidoPaterno
-        - apellidoMaterno
+        - apellido
         - sexo
-        - estado
+        - fh_nac
+        - id_rol
       properties:
+        id_persona:
+          type: number
+          description: ID de la persona
         nombre:
           type: string
-          description: Nombre de pila de la persona
-          maxLength: 128
-        apellidoPaterno:
-          type: string
-          description: Primer apellido de la persona
-          maxLength: 128
-        apellidoMaterno:
-          type: string
-          description: Segundo apellido de la persona
-          maxLength: 128
-        estado:
-          type: number
-          minimum: 1
-          maximum: 32
-          description: Código del estado de nacimiento de la persona
-        nombreEstado:
-          type: string
+          description: Nombre de la persona
           maxLength: 64
-          description: Nombre del estado de nacimiento de la persona. (Opcional)
+        apellido:
+          type: string
+          description: Apellido de la persona
+          maxLength: 64
         sexo:
           type: string
           enum: ['h', 'm', 'o']
@@ -637,19 +746,73 @@ components:
               h: Hombre
               m: Mujer
               o: Otro
-        sexo_otro:
+          maxLength: 1
+        fh_nac:
           type: string
-          maxLength: 64
-          description: 
-            Sexo opcional de la persona, en caso que quiera especificarlo. (Opcional)
-    PersonaEscuela:
+          format: date
+          description: Fecha de nacimiento de la persona
+        id_rol:
+          type: number
+          enum: [1, 2, 3, 4]
+          description: >
+            Código del rol de la persona
+              1: Alumno
+              2: Profesor
+              3: Administrativo
+              4: Otro
+    PersonaEscuelaFull:
       type: object
       required:
+        - id_persona
         - nombre
         - apellido
-        - id_rol        
+        - sexo
+        - fh_nac
+        - id_rol
+        - rol
       properties:
-        id:
+        id_persona:
+          type: number
+          description: ID de la persona
+        nombre:
+          type: string
+          description: Nombre de la persona
+          maxLength: 64
+        apellido:
+          type: string
+          description: Apellido de la persona
+          maxLength: 64
+        sexo:
+          type: string
+          enum: ['h', 'm', 'o']
+          description: >
+            Código del sexo de la persona
+              h: Hombre
+              m: Mujer
+              o: Otro
+          maxLength: 1
+        fh_nac:
+          type: string
+          format: date
+          description: Fecha de nacimiento de la persona
+        id_rol:
+          type: number
+          enum: [1, 2, 3, 4]
+          description: >
+            Código del rol de la persona
+              1: Alumno
+              2: Profesor
+              3: Administrativo
+              4: Otro
+        rol:
+          type: string
+          description: Rol de la persona dentro del sistema
+    PersonaEscuelaOpcional:
+      type: object
+      required:
+        - id_persona
+      properties:
+        id_persona:
           type: number
           description: ID de la persona
         nombre:

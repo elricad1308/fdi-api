@@ -79,6 +79,56 @@ class EscuelaController {
     }
   }
 
+  async deletePersona (req, res) {
+    try {
+      const data = req.body
+
+      if (!data.id_persona) {
+        res.status(400).type('application/json').send('id is required')
+        return
+      }
+
+      const modelo = new PersonaEscuelaModel()
+      const rows = await modelo.delete(data.id_persona)
+
+      res.status(200).type('application/json').send(rows)
+    } catch (err) {
+      console.error(`[PersonaModel:delete] error: ${err}`)
+
+      res.status(500).type('application/json').send(err.message)
+    }
+  }
+
+  async fetchPersona (_, res) {
+    try {
+      const id = res.locals.oas.params.id
+
+      if (id) {
+        const modelo = new PersonaEscuelaModel()
+        const data = await modelo.fetch(id)
+
+        if (data.fh_nac) {
+          data.fh_nac = data.fh_nac.toISOString().split('T')[0]
+        }
+
+        res.status(200)
+          .type('application/json')
+          .send(data)
+      } else {
+        res.status(400)
+          .type('application/json')
+          .send('Se requiere el ID de la persona')
+      }
+    } catch (err) {
+      console.error(`[PersonaModel:fetch] error: ${err}`)
+
+      res
+        .status(500)
+        .type('application/json')
+        .send(err.message)
+    }
+  }
+
   async listAsignacion (_, res) {
     try {
       const modelo = new AsignacionModel()
@@ -143,6 +193,23 @@ class EscuelaController {
       res.status(500).type('application/json').send(err.message)
     }
   }
+
+  async updatePersona (req, res) {
+    try {
+      const modelo = new PersonaEscuelaModel()
+      const data = req.body 
+
+      const updates = await modelo.update(data.id_persona, data)
+
+      res.status(200)
+        .type('application/json')
+        .send(updates)
+    } catch (err) {
+      res.status(500)
+        .type('application/json')
+        .send(err.message)
+    }
+  }
 }
 
 const controller = new EscuelaController()
@@ -153,11 +220,14 @@ export const {
   createInscripcion,
   createMateria,
   createPersona,
+  deletePersona,
+  fetchPersona,
   listAsignacion,
   listAsistencia,
   listInscripcion,
   listMateria,
-  listPersonaEscuela
+  listPersonaEscuela,
+  updatePersona
 } = controller
 
 export default EscuelaController
