@@ -553,7 +553,7 @@ paths:
             application/json:
               schema:
                 type: object
-               properties:
+                properties:
                   code:
                     type: number
                     description: Código de la operación
